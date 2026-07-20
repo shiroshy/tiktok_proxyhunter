@@ -1,0 +1,31 @@
+<UserControl x:Class="TikTokProxyHunter.Desktop.Views.SourcesView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Grid Margin="30">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <DockPanel>
+   <TextBlock Text="Источники" Style="{StaticResource PageTitle}"/>
+   <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+    <Button Content="Обновить состояние" Command="{Binding RefreshCommand}" Margin="0,0,8,0"/>
+    <Button Content="Включить / отключить" Command="{Binding ToggleCommand}" Margin="0,0,8,0"/>
+    <Button Content="Открыть homepage" Command="{Binding OpenHomepageCommand}" Margin="0,0,8,0"/>
+    <Button Content="Импорт (dry-run)" Command="{Binding PreviewImportCommand}"/>
+   </StackPanel>
+  </DockPanel>
+  <ComboBox Grid.Row="1" Width="240" HorizontalAlignment="Left" ItemsSource="{Binding Filters}" SelectedItem="{Binding Filter}" Margin="0,16,0,10"/>
+  <DataGrid Grid.Row="2" ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" AutoGenerateColumns="False" IsReadOnly="True">
+   <DataGrid.Columns>
+    <DataGridCheckBoxColumn Header="Включён" Binding="{Binding Enabled, Mode=OneWay}"/>
+    <DataGridTextColumn Header="Название" Binding="{Binding Name, Mode=OneWay}" Width="2*"/>
+    <DataGridTextColumn Header="Семейство" Binding="{Binding Family, Mode=OneWay}" Width="*"/>
+    <DataGridTextColumn Header="Протокол" Binding="{Binding Protocol, Mode=OneWay}"/>
+    <DataGridTextColumn Header="Состояние" Binding="{Binding StatusLabel, Mode=OneWay}"/>
+    <DataGridTextColumn Header="Кандидатов" Binding="{Binding Candidates, Mode=OneWay}"/>
+    <DataGridTextColumn Header="Валидных" Binding="{Binding Valid, Mode=OneWay}"/>
+    <DataGridTextColumn Header="Latency" Binding="{Binding LatencyMs, Mode=OneWay, StringFormat={}{0:N0} ms}"/>
+    <DataGridTextColumn Header="Последний успех" Binding="{Binding LastSuccess, Mode=OneWay, StringFormat={}{0:dd.MM HH:mm}}"/>
+    <DataGridTextColumn Header="Лицензия" Binding="{Binding License, Mode=OneWay}"/>
+   </DataGrid.Columns>
+  </DataGrid>
+  <TextBlock Grid.Row="3" Text="{Binding StatusMessage}" Style="{StaticResource SecondaryText}" Margin="0,10,0,0"/>
+ </Grid>
+</UserControl>

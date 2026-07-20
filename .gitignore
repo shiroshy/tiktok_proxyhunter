@@ -1,0 +1,11 @@
+bin/
+obj/
+output/
+outputs/
+*.user
+*.suo
+.vs/
+.cache/
+**/*.private.json
+config/tiktok-test-videos.local.json
+config/*.mmdb

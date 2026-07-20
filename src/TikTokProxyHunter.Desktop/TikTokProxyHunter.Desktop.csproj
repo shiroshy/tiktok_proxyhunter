@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>TikTokProxyHunter</AssemblyName>
+    <RootNamespace>TikTokProxyHunter.Desktop</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\AppIcon.ico" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
+    <ProjectReference Include="..\TikTokProxyHunter.Core\TikTokProxyHunter.Core.csproj" />
+    <ProjectReference Include="..\TikTokProxyHunter.Infrastructure\TikTokProxyHunter.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\appsettings.json" Link="appsettings.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\config\proxy-sources.json" Link="config\proxy-sources.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\config\tiktok-test-videos.example.json" Link="config\tiktok-test-videos.example.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="README-FIRST.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="README.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="licenses\CommunityToolkit.Mvvm.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Target Name="PruneUnusedPlaywrightNodeRuntimes" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <ItemGroup>
+      <UnusedPlaywrightNodeFiles Include="$(PublishDir).playwright\node\linux-x64\**\*;$(PublishDir).playwright\node\linux-arm64\**\*;$(PublishDir).playwright\node\darwin-x64\**\*;$(PublishDir).playwright\node\darwin-arm64\**\*" />
+    </ItemGroup>
+    <Delete Files="@(UnusedPlaywrightNodeFiles)" />
+    <RemoveDir Directories="$(PublishDir).playwright\node\linux-x64;$(PublishDir).playwright\node\linux-arm64;$(PublishDir).playwright\node\darwin-x64;$(PublishDir).playwright\node\darwin-arm64" />
+  </Target>
+</Project>

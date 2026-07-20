@@ -1,0 +1,9 @@
+{
+  "videos": [
+    {
+      "name": "primary-test",
+      "url": "https://www.tiktok.com/@public-account/video/0000000000000000000",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Documentation-only addresses: safe for parser and collection demonstration.
+8.8.8.8:8080 US transparent
+socks5://1.1.1.1:1080
+http://demo:secret@9.9.9.9:3128
+192.168.1.10:8080
+invalid.example:99999

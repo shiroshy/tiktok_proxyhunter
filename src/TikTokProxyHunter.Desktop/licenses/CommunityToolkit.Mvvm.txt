@@ -1,0 +1,3 @@
+CommunityToolkit.Mvvm is maintained by Microsoft and the .NET Foundation and is
+licensed under the MIT License. See the package distribution and
+https://github.com/CommunityToolkit/dotnet for the complete license text.

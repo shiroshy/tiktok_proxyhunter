@@ -1,0 +1,40 @@
+[
+  {
+    "name": "descriptive-public-source-name",
+    "enabled": false,
+    "url": "https://example.com/path/to/published-proxies.txt",
+    "format": "text",
+    "declaredProtocol": "Unknown",
+    "category": "GitHubRaw",
+    "priority": 50,
+    "trustWeight": 0.5,
+    "license": "Unknown",
+    "homepage": "https://example.com/source-description",
+    "expectedContentType": "text/plain",
+    "maximumDownloadBytes": 52428800,
+    "minimumExpectedCandidates": 1,
+    "sourceFamily": "example-family",
+    "notes": "Keep disabled until URL, license and content are reviewed.",
+    "timeoutSeconds": 15,
+    "parserOptions": {}
+  },
+  {
+    "name": "json-api-example",
+    "enabled": false,
+    "url": "https://example.com/api/proxies",
+    "format": "json",
+    "declaredProtocol": "Unknown",
+    "category": "PublicApi",
+    "priority": 50,
+    "trustWeight": 0.5,
+    "license": "Unknown",
+    "homepage": "https://example.com/api-docs",
+    "expectedContentType": "application/json",
+    "maximumDownloadBytes": 52428800,
+    "minimumExpectedCandidates": 1,
+    "sourceFamily": "example-api-family",
+    "notes": "Review API terms and rate limits before enabling.",
+    "timeoutSeconds": 15,
+    "parserOptions": { "path": "data.items" }
+  }
+]

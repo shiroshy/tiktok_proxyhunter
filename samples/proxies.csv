@@ -1,0 +1,4 @@
+ip,port,protocol,country
+8.8.8.8,8080,http,US
+208.67.222.222,3128,http,US
+10.0.0.1,1080,socks5,PRIVATE
