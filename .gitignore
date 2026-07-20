@@ -9,3 +9,4 @@ outputs/
 **/*.private.json
 config/tiktok-test-videos.local.json
 config/*.mmdb
+publish/
