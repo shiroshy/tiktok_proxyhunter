@@ -271,6 +271,8 @@ dotnet publish src/TikTokProxyHunter.Desktop `
 
 Chromium не встраивается в executable и устанавливается только после явного подтверждения. Пользовательские настройки сохраняются атомарно в `%LocalAppData%\TikTokProxyHunter\desktop-settings.json`; cookies, proxy credentials, GitHub token и подписанные media URL туда не записываются. Приложение не изменяет системный proxy Windows.
 
+Portable GitHub Release может содержать предварительно обновлённый публичный source cache. Его состав и время обновления описаны в `config/source-snapshot-manifest.json`. Desktop использует bundled snapshot только как read-only fallback, сохраняет дальнейшие обновления в `%LocalAppData%\TikTokProxyHunter\source-cache` и при каждом поиске выполняет условные запросы ETag/Last-Modified. Наличие endpoint в snapshot не означает, что прокси всё ещё работает.
+
 ## Не входит в проект
 
 - БД, Entity Framework и фоновый планировщик;

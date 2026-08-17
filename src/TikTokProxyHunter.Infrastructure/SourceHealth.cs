@@ -69,15 +69,22 @@ public sealed class SourceHealthEvaluator : ISourceHealthEvaluator
 public sealed record SourceCacheEntry(string? ETag, DateTimeOffset? LastModified, byte[] Payload);
 
 public sealed class SourcePayloadCache(ISourceContentFingerprintService fingerprints, string? directory = null,
-    ILogger<SourcePayloadCache>? logger = null)
+    ILogger<SourcePayloadCache>? logger = null, string? fallbackDirectory = null)
 {
     private readonly string _directory = directory ?? Path.Combine(".cache", "proxy-sources");
+    private readonly string? _fallbackDirectory = fallbackDirectory;
 
     public async Task<SourceCacheEntry?> GetAsync(Uri uri, CancellationToken token)
     {
         var key = fingerprints.ComputeSha256(Encoding.UTF8.GetBytes(uri.AbsoluteUri));
-        var metadataPath = Path.Combine(_directory, key + ".json");
-        var payloadPath = Path.Combine(_directory, key + ".payload");
+        return await ReadAsync(_directory, key, uri, token)
+            ?? (_fallbackDirectory is null ? null : await ReadAsync(_fallbackDirectory, key, uri, token));
+    }
+
+    private async Task<SourceCacheEntry?> ReadAsync(string directory, string key, Uri uri, CancellationToken token)
+    {
+        var metadataPath = Path.Combine(directory, key + ".json");
+        var payloadPath = Path.Combine(directory, key + ".payload");
         if (!File.Exists(metadataPath) || !File.Exists(payloadPath)) return null;
         try
         {

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "release": "v1.0.1",
+  "refreshedAtUtc": "2026-08-17T11:18:15Z",
+  "catalogSha256": "968106645E60CFE382DB0DF9CFC81DD02001A3C8C9ECD4364591B3DD18CBE49C",
+  "sourceDefinitions": 48,
+  "enabledSources": 27,
+  "healthySources": 27,
+  "failedSources": 0,
+  "freshDownloads": 24,
+  "conditionalCacheHits": 3,
+  "payloadFiles": 27,
+  "payloadBytes": 11783979,
+  "extractedCandidates": 250000,
+  "validCandidates": 249993,
+  "uniqueEndpoints": 236764,
+  "notes": "Public source payload snapshot bundled with the portable Windows release; refreshed conditionally on every scan. Proxy availability is not guaranteed."
+}

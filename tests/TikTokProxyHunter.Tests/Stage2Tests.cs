@@ -67,6 +67,24 @@ public sealed class Stage2Tests
     }
 
     [Fact]
+    public async Task Source_cache_reads_bundled_fallback_without_writing_to_it()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "tiktok-proxy-hunter-fallback-" + Guid.NewGuid().ToString("N"));
+        var primary = Path.Combine(root, "user"); var fallback = Path.Combine(root, "bundled");
+        var uri = new Uri("https://example.test/proxies.txt"); var payload = "8.8.8.8:80"u8.ToArray();
+        try
+        {
+            var fingerprints = new SourceContentFingerprintService();
+            await new SourcePayloadCache(fingerprints, fallback).SaveAsync(uri, "\"snapshot\"", null, payload, CancellationToken.None);
+            var cache = new SourcePayloadCache(fingerprints, primary, fallbackDirectory: fallback);
+            var value = await cache.GetAsync(uri, CancellationToken.None);
+            Assert.NotNull(value); Assert.Equal(payload, value.Payload); Assert.Equal("\"snapshot\"", value.ETag);
+            Assert.False(Directory.Exists(primary));
+        }
+        finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
+    }
+
+    [Fact]
     public async Task Oversized_source_payload_is_rejected_before_reading()
     {
         var handler = new DelegateHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(new byte[128]) });

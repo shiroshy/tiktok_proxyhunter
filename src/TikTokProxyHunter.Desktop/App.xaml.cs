@@ -66,6 +66,11 @@ public partial class App : Application
         builder.Logging.ClearProviders(); builder.Logging.SetMinimumLevel(LogLevel.Information);
         builder.Services.AddSingleton<DesktopLogStore>(); builder.Services.AddSingleton<ILoggerProvider>(sp => sp.GetRequiredService<DesktopLogStore>());
         builder.Services.AddProxyHunterInfrastructure(hunter, geo, exitIp, tikTok, stability, browser, discovery, limits, preScore, ttl);
+        builder.Services.AddSingleton<SourcePayloadCache>(sp => new SourcePayloadCache(
+            sp.GetRequiredService<ISourceContentFingerprintService>(),
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TikTokProxyHunter", "source-cache"),
+            sp.GetRequiredService<ILogger<SourcePayloadCache>>(),
+            Path.Combine(AppContext.BaseDirectory, ".cache", "proxy-sources")));
         AddDesktopServices(builder.Services);
         return builder.Build();
     }

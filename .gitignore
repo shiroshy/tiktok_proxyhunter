@@ -2,6 +2,7 @@ bin/
 obj/
 output/
 outputs/
+work/
 *.user
 *.suo
 .vs/
